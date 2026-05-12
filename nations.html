@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 World Cup — English-Speaking Nations — Vegas Insider</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; background: #0F1B26; color: #fff; }
+
+/* HEADER */
+.hd { background: #1B2B3A; padding: 16px 24px; border-bottom: 3px solid transparent; border-image: linear-gradient(90deg,#C8902C,#F0BA55,#C8902C) 1; }
+.hd-title { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+.hd-sub { font-size: 12px; color: #7A909E; font-weight: 500; margin-top: 5px; }
+
+/* CURRENCY */
+.cur-bar { display: flex; align-items: center; gap: 10px; padding: 9px 24px; background: #151F28; border-bottom: 1px solid #1B2B3A; }
+.cur-label { font-size: 11px; font-weight: 700; color: #4A6070; text-transform: uppercase; letter-spacing: .08em; }
+.cur-sel { font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 600; padding: 5px 10px; border: 1px solid #253545; border-radius: 5px; background: #1B2B3A; color: #CBD5DC; outline: none; cursor: pointer; }
+.cur-sel:focus { border-color: #C8902C; }
+
+/* NATION BUTTONS */
+.nation-btns { display: flex; flex-wrap: wrap; gap: 8px; padding: 16px 24px; background: #0F1B26; border-bottom: 1px solid #1B2B3A; }
+.nbtn {
+  display: flex; align-items: center; gap: 8px;
+  padding: 9px 16px;
+  background: #1B2B3A;
+  border: 1px solid #253545;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .15s;
+  flex-shrink: 0;
+}
+.nbtn:hover { background: #253545; border-color: #3A5060; }
+.nbtn.active { background: #C8902C; border-color: #C8902C; }
+.nbtn-flag { font-size: 18px; line-height: 1; }
+.nbtn-name { font-size: 13px; font-weight: 600; color: #CBD5DC; }
+.nbtn.active .nbtn-name { color: #fff; }
+
+/* DETAIL PANEL */
+.detail { padding: 20px 24px 24px; background: #0F1B26; min-height: 340px; }
+
+/* NATION HEADER */
+.d-header { display: flex; align-items: center; gap: 14px; margin-bottom: 20px; }
+.d-flag { font-size: 40px; line-height: 1; }
+.d-name { font-size: 24px; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+.d-rank { font-size: 12px; font-weight: 700; color: #C8902C; letter-spacing: .06em; text-transform: uppercase; margin-top: 3px; }
+
+/* STATS GRID */
+.stats-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 18px; }
+@media (min-width: 560px) { .stats-grid { grid-template-columns: repeat(4, 1fr); } }
+
+.stat-box { background: #1B2B3A; border-radius: 6px; padding: 13px 14px; }
+.stat-box-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #4A6070; margin-bottom: 5px; }
+.stat-box-val { font-family: 'IBM Plex Mono', monospace; font-size: 18px; font-weight: 600; color: #F0BA55; line-height: 1; }
+.stat-box-sub { font-size: 11px; color: #5A7080; font-weight: 500; margin-top: 4px; }
+
+/* COST BAR */
+.cost-section { margin-bottom: 18px; }
+.cost-section-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #4A6070; margin-bottom: 10px; }
+.cost-row { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+.cost-row-label { font-size: 12px; font-weight: 600; color: #7A909E; width: 90px; flex-shrink: 0; }
+.cost-track { flex: 1; height: 20px; background: #1B2B3A; border-radius: 3px; overflow: hidden; }
+.cost-bar { height: 100%; border-radius: 3px; transition: width .6s cubic-bezier(.4,0,.2,1); display: flex; align-items: center; padding-left: 8px; }
+.cost-bar-val { font-family: 'IBM Plex Mono', monospace; font-size: 10px; font-weight: 600; color: rgba(255,255,255,.85); white-space: nowrap; }
+.cost-row-total { font-family: 'IBM Plex Mono', monospace; font-size: 11px; font-weight: 600; color: #5A7080; width: 70px; text-align: right; flex-shrink: 0; }
+
+/* INSIGHT BOX */
+.insight { background: #1B2B3A; border-left: 3px solid #C8902C; border-radius: 0 6px 6px 0; padding: 13px 16px; font-size: 13px; font-weight: 500; color: #A0B8C4; line-height: 1.6; }
+.insight strong { color: #F0BA55; font-weight: 700; }
+
+/* SCENARIOS ROW */
+.scenarios { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin-bottom: 18px; }
+@media (min-width: 480px) { .scenarios { grid-template-columns: repeat(4,1fr); } }
+.sc-box { background: #1B2B3A; border-radius: 6px; padding: 10px 12px; }
+.sc-box-label { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: .1em; color: #3D5568; margin-bottom: 4px; }
+.sc-box-val { font-family: 'IBM Plex Mono', monospace; font-size: 14px; font-weight: 600; color: #CBD5DC; }
+.sc-box-rank { font-size: 10px; color: #C8902C; font-weight: 700; margin-top: 3px; }
+
+/* PLACEHOLDER */
+.placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 280px; gap: 12px; color: #253545; text-align: center; }
+.placeholder-icon { font-size: 40px; }
+.placeholder-text { font-size: 14px; font-weight: 600; color: #2A3D50; }
+
+/* FOOTER */
+.foot { display: flex; justify-content: space-between; align-items: center; padding: 9px 24px; background: #1B2B3A; border-top: 1px solid #253545; gap: 12px; }
+.foot-note { font-size: 11px; color: #4A6070; font-weight: 500; }
+.foot-logo-wrap { background: #fff; border-radius: 5px; padding: 4px 10px; flex-shrink: 0; display: flex; align-items: center; }
+.foot-logo { height: 18px; width: auto; object-fit: contain; display: block; }
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <div class="hd-title">English-Speaking Nations — 2026 World Cup Travel Cost</div>
+  <div class="hd-sub">Select a nation to see the full breakdown · Average group stage trip · Two supporters</div>
+</div>
+
+<div class="cur-bar">
+  <span class="cur-label">Currency</span>
+  <select class="cur-sel" id="curSel">
+    <option value="USD">🇺🇸 USD</option>
+    <option value="GBP">🇬🇧 GBP</option>
+    <option value="EUR">🇪🇺 EUR</option>
+    <option value="CAD">🇨🇦 CAD</option>
+    <option value="AUD">🇦🇺 AUD</option>
+  </select>
+</div>
+
+<div class="nation-btns" id="nationBtns"></div>
+<div class="detail" id="detail">
+  <div class="placeholder">
+    <div class="placeholder-icon">👆</div>
+    <div class="placeholder-text">Select a nation above to see the full cost breakdown</div>
+  </div>
+</div>
+
+<div class="foot">
+  <div class="foot-note">Source: Google Flights · Booking.com · LiveFootballTickets.com · Numbeo · Data: Apr–May 2026</div>
+  <div class="foot-logo-wrap"><img src="https://s3.amazonaws.com/bctn-vi/image.png" alt="Vegas Insider" class="foot-logo"></div>
+</div>
+
+<script>
+// name, flag, sc1, sc3, sc2, sc4, flights, hotels, tickets, food, rank_sc1, rank_sc3, rank_sc2, rank_sc4, budget_save_pct, insight
+const NATIONS = [
+  {
+    name: "United States", flag: "🇺🇸",
+    sc1: 26299, sc3: 11689, sc2: 70471, sc4: 44250,
+    fl: 3410, ac: 12877, tk: 6860, fd: 3152,
+    r1: 11, r3: 13, r2: 19, r4: 18,
+    save: 55,
+    insight: "Accommodation is the story for US fans. Hotels cost <strong>$12,877</strong> for three group games — the highest of any English-speaking nation — while domestic flights average just <strong>$3,410</strong>. Home-nation ticket demand adds <strong>$6,860</strong> for two. The average and budget rankings sit close together, meaning there is limited room to cut costs significantly."
+  },
+  {
+    name: "England", flag: "🏴󠁧󠁢󠁥󠁮󠁧󠁿",
+    sc1: 20114, sc3: 11344, sc2: 64419, sc4: 43598,
+    fl: 5529, ac: 7076, tk: 5490, fd: 2020,
+    r1: 41, r3: 18, r2: 44, r4: 22,
+    save: 43,
+    insight: "England ranks <strong>#41</strong> on average cost — one of the cheaper trips in the study. But the budget trip ranks <strong>#18</strong>, revealing that cheap England tickets simply do not exist. The gap between average and minimum is almost entirely absorbed by unavoidable ticket premiums. Going all the way to the Final costs <strong>3.2x</strong> the group stage alone."
+  },
+  {
+    name: "Canada", flag: "🇨🇦",
+    sc1: 24744, sc3: 10729, sc2: 68846, sc4: 42785,
+    fl: 2178, ac: 14795, tk: 5056, fd: 2715,
+    r1: 20, r3: 25, r2: 29, r4: 31,
+    save: 56,
+    insight: "Canada has the <strong>cheapest flights</strong> of any English-speaking nation at $2,178 — but pays <strong>$14,795 in hotels</strong>, more than double England's $7,076. Toronto and Vancouver match-week surge pricing eliminates the domestic flight advantage entirely. Hotels represent <strong>59%</strong> of the total group stage cost."
+  },
+  {
+    name: "Australia", flag: "🇦🇺",
+    sc1: 26158, sc3: 12274, sc2: 69834, sc4: 44698,
+    fl: 8413, ac: 11088, tk: 3878, fd: 2780,
+    r1: 13, r3: 8, r2: 22, r4: 12,
+    save: 53,
+    insight: "Flights define the Australian trip at <strong>$8,413</strong> average — the second highest of any English-speaking nation. But Australia ranks <strong>#8 on the budget table</strong>, meaning cheaper routings genuinely exist. Group D opponents USA, Paraguay, and Turkey produce moderate ticket demand at just <strong>$3,878</strong> for two across three games."
+  },
+  {
+    name: "Scotland", flag: "🏴󠁧󠁢󠁳󠁣󠁴󠁿",
+    sc1: 26172, sc3: 13618, sc2: 71596, sc4: 46806,
+    fl: 6644, ac: 10412, tk: 6278, fd: 2838,
+    r1: 12, r3: 3, r2: 12, r4: 3,
+    save: 47,
+    insight: "Scotland costs <strong>$6,058 more</strong> than England for the average group stage trip and ranks <strong>#3 on both budget scenarios</strong> — expensive regardless of how you travel. The reason is the draw: Scotland face Brazil, Morocco, and Haiti in Group C. The Brazil fixture inflates ticket premiums across all three games and no planning decision changes that."
+  },
+  {
+    name: "New Zealand", flag: "🇳🇿",
+    sc1: 24270, sc3: 10080, sc2: 70217, sc4: 42110,
+    fl: 7821, ac: 11834, tk: 2168, fd: 2447,
+    r1: 23, r3: 31, r2: 20, r4: 35,
+    save: 58,
+    insight: "New Zealand has the <strong>lowest ticket costs</strong> of any English-speaking nation at <strong>$2,168</strong> for two across the group stage. Group G opponents Belgium, Iran, and Egypt generate limited secondary market demand. Long-haul flights from Wellington average <strong>$7,821</strong> but fall sharply at minimum pricing, making the full tournament one of the better-value budgets at rank #35."
+  },
+  {
+    name: "South Africa", flag: "🇿🇦",
+    sc1: 22366, sc3: 9331, sc2: 64845, sc4: 41442,
+    fl: 10775, ac: 8266, tk: 1380, fd: 1944,
+    r1: 31, r3: 40, r2: 42, r4: 43,
+    save: 58,
+    insight: "South Africa has the <strong>highest flights</strong> of any English-speaking nation at <strong>$10,775</strong> — but the lowest group stage ticket costs at just <strong>$1,380</strong> for two, reflecting Group A opponents Mexico, South Korea, and Czech Republic. The nation falls from rank #31 average group stage to <strong>#42 all stages</strong> as ticket costs compound through knockout rounds."
+  }
+];
+
+const RATES = { USD:{r:1,s:'$'}, GBP:{r:0.788,s:'£'}, EUR:{r:0.908,s:'€'}, CAD:{r:1.363,s:'CA$'}, AUD:{r:1.538,s:'A$'} };
+let cur = 'USD', active = null;
+
+const cv  = v => Math.round(v * RATES[cur].r);
+const fmt = v => RATES[cur].s + cv(v).toLocaleString('en-US');
+
+const SEG_COLORS = { fl:'#2C6E9C', ac:'#C4562A', tk:'#2A8C60', fd:'#8C6A2A' };
+const SEG_LABELS = { fl:'✈ Flights', ac:'🏨 Hotels', tk:'🎟 Tickets', fd:'🍽 Food' };
+
+// Build nation buttons
+const btnsEl = document.getElementById('nationBtns');
+NATIONS.forEach((n, i) => {
+  const btn = document.createElement('div');
+  btn.className = 'nbtn';
+  btn.dataset.idx = i;
+  btn.innerHTML = `<span class="nbtn-flag">${n.flag}</span><span class="nbtn-name">${n.name}</span>`;
+  btn.addEventListener('click', () => selectNation(i));
+  btnsEl.appendChild(btn);
+});
+
+function selectNation(idx) {
+  // Update buttons
+  document.querySelectorAll('.nbtn').forEach((b,i) => b.classList.toggle('active', i===idx));
+  active = idx;
+  renderDetail(NATIONS[idx]);
+}
+
+function renderDetail(n) {
+  const maxComp = Math.max(n.fl, n.ac, n.tk, n.fd);
+
+  document.getElementById('detail').innerHTML = `
+    <div class="d-header">
+      <div class="d-flag">${n.flag}</div>
+      <div>
+        <div class="d-name">${n.name}</div>
+        <div class="d-rank">Rank ${n.r1} of 48 nations · Avg Group Stage</div>
+      </div>
+    </div>
+
+    <div class="scenarios">
+      <div class="sc-box">
+        <div class="sc-box-label">Avg Group Stage</div>
+        <div class="sc-box-val">${fmt(n.sc1)}</div>
+        <div class="sc-box-rank">Rank #${n.r1} / 48</div>
+      </div>
+      <div class="sc-box">
+        <div class="sc-box-label">Min Group Stage</div>
+        <div class="sc-box-val">${fmt(n.sc3)}</div>
+        <div class="sc-box-rank">Rank #${n.r3} / 48</div>
+      </div>
+      <div class="sc-box">
+        <div class="sc-box-label">Avg Full Tournament</div>
+        <div class="sc-box-val">${fmt(n.sc2)}</div>
+        <div class="sc-box-rank">Rank #${n.r2} / 48</div>
+      </div>
+      <div class="sc-box">
+        <div class="sc-box-label">Min Full Tournament</div>
+        <div class="sc-box-val">${fmt(n.sc4)}</div>
+        <div class="sc-box-rank">Rank #${n.r4} / 48</div>
+      </div>
+    </div>
+
+    <div class="cost-section">
+      <div class="cost-section-title">Where the money goes — Avg Group Stage</div>
+      ${['fl','ac','tk','fd'].map(k => {
+        const val = n[k];
+        const pct = (val / n.sc1 * 100).toFixed(0);
+        const barW = (val / maxComp * 100).toFixed(1);
+        return `<div class="cost-row">
+          <div class="cost-row-label">${SEG_LABELS[k]}</div>
+          <div class="cost-track">
+            <div class="cost-bar" style="width:0%;background:${SEG_COLORS[k]}" data-w="${barW}">
+              <span class="cost-bar-val">${pct}%</span>
+            </div>
+          </div>
+          <div class="cost-row-total">${fmt(val)}</div>
+        </div>`;
+      }).join('')}
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-box">
+        <div class="stat-box-label">Budget Saving</div>
+        <div class="stat-box-val">${n.save}%</div>
+        <div class="stat-box-sub">vs average trip</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-label">Min Group Stage</div>
+        <div class="stat-box-val">${fmt(n.sc3)}</div>
+        <div class="stat-box-sub">Rank #${n.r3} of 48</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-label">Full Tournament</div>
+        <div class="stat-box-val">${fmt(n.sc2)}</div>
+        <div class="stat-box-sub">Avg · all stages</div>
+      </div>
+      <div class="stat-box">
+        <div class="stat-box-label">Budget Tournament</div>
+        <div class="stat-box-val">${fmt(n.sc4)}</div>
+        <div class="stat-box-sub">Rank #${n.r4} of 48</div>
+      </div>
+    </div>
+
+    <div class="insight">${n.insight}</div>
+  `;
+
+  // Animate bars
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    document.querySelectorAll('.cost-bar').forEach(b => {
+      b.style.transition = 'width .6s cubic-bezier(.4,0,.2,1)';
+      b.style.width = b.dataset.w + '%';
+    });
+  }));
+}
+
+function rerender() {
+  if (active !== null) renderDetail(NATIONS[active]);
+}
+
+document.getElementById('curSel').addEventListener('change', e => {
+  cur = e.target.value;
+  rerender();
+});
+
+// Default to first nation
+selectNation(0);
+</script>
+</body>
+</html>
