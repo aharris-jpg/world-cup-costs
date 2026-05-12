@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 World Cup Travel Cost — Key Findings — Vegas Insider</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Inter', system-ui, sans-serif; background: #0F1B26; color: #fff; }
+
+/* HEADER */
+.hd {
+  background: #1B2B3A;
+  padding: 16px 24px;
+  border-bottom: 3px solid transparent;
+  border-image: linear-gradient(90deg,#C8902C,#F0BA55,#C8902C) 1;
+}
+.hd-title { font-size: 18px; font-weight: 800; color: #fff; letter-spacing: -.01em; }
+.hd-sub { font-size: 12px; color: #7A909E; font-weight: 500; margin-top: 5px; }
+
+/* STAGE */
+.stage {
+  position: relative;
+  overflow: hidden;
+  min-height: 280px;
+  background: #0F1B26;
+}
+
+/* CARD */
+.card {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 32px 40px;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.45s ease, transform 0.45s ease;
+  pointer-events: none;
+}
+.card.active {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+/* GOLD LEFT ACCENT */
+.card::before {
+  content: '';
+  position: absolute;
+  left: 0; top: 28px; bottom: 28px;
+  width: 3px;
+  background: #C8902C;
+  border-radius: 0 2px 2px 0;
+  opacity: 0;
+  transition: opacity 0.35s ease 0.15s;
+}
+.card.active::before { opacity: 1; }
+
+/* CARD ELEMENTS */
+.card-tag {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: #C8902C;
+  margin-bottom: 14px;
+}
+.card-stat {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: clamp(36px, 7vw, 58px);
+  font-weight: 600;
+  color: #fff;
+  line-height: 1;
+  margin-bottom: 14px;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s;
+}
+.card.active .card-stat { opacity: 1; transform: translateY(0); }
+.card-text {
+  font-size: clamp(14px, 2.2vw, 17px);
+  font-weight: 500;
+  color: #8AACBC;
+  line-height: 1.55;
+  max-width: 680px;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.5s ease 0.25s, transform 0.5s ease 0.25s;
+}
+.card.active .card-text { opacity: 1; transform: translateY(0); }
+.card-text strong { color: #fff; font-weight: 700; }
+.card-source {
+  margin-top: 16px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #2A3D50;
+  letter-spacing: .02em;
+  opacity: 0;
+  transition: opacity 0.4s ease 0.5s;
+}
+.card.active .card-source { opacity: 1; }
+
+/* CONTROLS */
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 24px;
+  background: #151F28;
+  border-top: 1px solid #1B2B3A;
+}
+.dots { display: flex; gap: 7px; align-items: center; }
+.dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: #1E3040;
+  cursor: pointer;
+  transition: all .2s;
+  border: 1px solid #253545;
+}
+.dot.on { background: #C8902C; border-color: #C8902C; width: 20px; border-radius: 4px; }
+.dot:hover:not(.on) { background: #2A3D50; }
+.prog-wrap { flex: 1; height: 2px; background: #1E3040; border-radius: 2px; overflow: hidden; }
+.prog { height: 100%; width: 0%; background: #C8902C; border-radius: 2px; }
+.pause-btn {
+  background: none;
+  border: 1px solid #253545;
+  color: #4A6070;
+  font-family: 'Inter', system-ui, sans-serif;
+  font-size: 10px; font-weight: 700;
+  letter-spacing: .08em; text-transform: uppercase;
+  padding: 5px 12px; border-radius: 4px;
+  cursor: pointer; transition: all .15s;
+  white-space: nowrap;
+}
+.pause-btn:hover { background: #1E3040; color: #7A909E; border-color: #3A5060; }
+.counter { font-family: 'IBM Plex Mono', monospace; font-size: 11px; color: #2A3D50; font-weight: 600; white-space: nowrap; }
+
+/* FOOTER */
+.foot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 24px;
+  background: #1B2B3A;
+  border-top: 1px solid #253545;
+  gap: 12px;
+}
+.foot-note { font-size: 11px; color: #4A6070; font-weight: 500; }
+.foot-logo-wrap { background: #fff; border-radius: 5px; padding: 4px 10px; flex-shrink: 0; display: flex; align-items: center; }
+.foot-logo { height: 18px; width: auto; object-fit: contain; display: block; }
+</style>
+</head>
+<body>
+
+<div class="hd">
+  <div class="hd-title">2026 World Cup — Key Findings</div>
+  <div class="hd-sub">Travel cost study · All 48 qualified nations · Two supporters · Average group stage</div>
+</div>
+
+<div class="stage" id="stage"></div>
+
+<div class="controls">
+  <div class="dots" id="dots"></div>
+  <div class="prog-wrap"><div class="prog" id="prog"></div></div>
+  <button class="pause-btn" id="pauseBtn">Pause</button>
+  <span class="counter" id="counter"></span>
+</div>
+
+<div class="foot">
+  <div class="foot-note">Vegas Insider World Cup 2026 Travel Cost Study · VegasInsider.com</div>
+  <div class="foot-logo-wrap">
+    <img src="https://s3.amazonaws.com/bctn-vi/image.png" alt="Vegas Insider" class="foot-logo">
+  </div>
+</div>
+
+<script>
+const SOURCE = 'Vegas Insider World Cup 2026 Travel Cost Study · VegasInsider.com';
+
+const CARDS = [
+  {
+    tag: 'Most expensive nation',
+    stat: '$35,727',
+    text: '🇮🇶 <strong>Iraq</strong> is the most expensive group stage trip of any qualified nation — <strong>$35,727 for two supporters</strong>, driven by a Baghdad to North America flight averaging $20,790.',
+    source: SOURCE
+  },
+  {
+    tag: 'Cheapest nation',
+    stat: '$17,282',
+    text: '🇵🇦 <strong>Panama</strong> is the most affordable at <strong>$17,282 for two</strong> — $6,616 below the study average of $23,898, and less than half the cost of Iraq.',
+    source: SOURCE
+  },
+  {
+    tag: 'Study average — all 48 nations',
+    stat: '$23,898',
+    text: 'The average group stage trip costs <strong>$23,898</strong> across all 48 qualified nations — but ranges from $17,282 to $35,727 depending almost entirely on origin airport and fixture demand.',
+    source: SOURCE
+  },
+  {
+    tag: 'The ticket effect — Argentina',
+    stat: 'Rank #1',
+    text: '🇦🇷 <strong>Argentina ranks #1 on the budget table</strong> despite having shorter flights than most — because even the cheapest secondary market tickets for the defending champions cost <strong>$5,736 for two</strong>. You cannot budget your way past fixture demand.',
+    source: SOURCE
+  },
+  {
+    tag: 'Host nation paradox — Canada',
+    stat: '$14,795',
+    text: '🇨🇦 <strong>Canada</strong> has the cheapest flights of any English-speaking nation at $2,178 — yet pays <strong>$14,795 in hotels</strong>, more than double England\'s $7,076. Toronto and Vancouver surge pricing wipes out the domestic advantage.',
+    source: SOURCE
+  },
+  {
+    tag: 'Scotland vs England',
+    stat: '+$6,058',
+    text: '🏴󠁧󠁢󠁳󠁣󠁴󠁿 <strong>Scottish fans pay $6,058 more</strong> than English fans for the average group stage trip — and rank #3 on the budget table too. Scotland\'s draw against Brazil makes the trip expensive regardless of how carefully supporters plan.',
+    source: SOURCE
+  },
+  {
+    tag: 'How much budget travel saves',
+    stat: '45–67%',
+    text: 'Choosing the cheapest available flights and hotels saves <strong>45–67%</strong> for most nations at group stage. Nations like <strong>England and Scotland save the least</strong> — their ticket premiums are fixed and unavoidable.',
+    source: SOURCE
+  },
+  {
+    tag: 'The full tournament',
+    stat: '$40,744–$81,605',
+    text: 'Following your team all the way to the Final costs between <strong>$40,744 and $81,605</strong> for two supporters. The difference between nations narrows sharply once knockout ticket costs — the same for everyone — dominate the total.',
+    source: SOURCE
+  }
+];
+
+const DURATION = 5500;
+let cur = 0, paused = false, timer = null;
+
+const stage = document.getElementById('stage');
+const dotsEl = document.getElementById('dots');
+const prog = document.getElementById('prog');
+
+// Build cards
+CARDS.forEach((c, i) => {
+  const div = document.createElement('div');
+  div.className = 'card' + (i === 0 ? ' active' : '');
+  div.id = 'card-' + i;
+  div.innerHTML = `
+    <div class="card-tag">${c.tag}</div>
+    <div class="card-stat">${c.stat}</div>
+    <div class="card-text">${c.text}</div>
+    <div class="card-source">${c.source}</div>
+  `;
+  stage.appendChild(div);
+});
+
+// Build dots
+CARDS.forEach((_, i) => {
+  const d = document.createElement('div');
+  d.className = 'dot' + (i === 0 ? ' on' : '');
+  d.addEventListener('click', () => go(i));
+  dotsEl.appendChild(d);
+});
+
+function updateUI() {
+  document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('on', i === cur));
+  document.getElementById('counter').textContent = `${cur + 1} / ${CARDS.length}`;
+}
+
+function startProg() {
+  prog.style.transition = 'none';
+  prog.style.width = '0%';
+  requestAnimationFrame(() => requestAnimationFrame(() => {
+    prog.style.transition = `width ${DURATION}ms linear`;
+    prog.style.width = '100%';
+  }));
+}
+
+function go(idx) {
+  clearTimeout(timer);
+  document.getElementById('card-' + cur).classList.remove('active');
+  cur = ((idx % CARDS.length) + CARDS.length) % CARDS.length;
+  document.getElementById('card-' + cur).classList.add('active');
+  updateUI();
+  startProg();
+  if (!paused) timer = setTimeout(() => go(cur + 1), DURATION);
+}
+
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  paused = !paused;
+  document.getElementById('pauseBtn').textContent = paused ? 'Play' : 'Pause';
+  if (paused) {
+    clearTimeout(timer);
+    prog.style.transition = 'none';
+  } else {
+    go(cur);
+  }
+});
+
+updateUI();
+startProg();
+timer = setTimeout(() => go(1), DURATION);
+</script>
+</body>
+</html>
