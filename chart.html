@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 World Cup Travel Cost — Vegas Insider</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Inter',system-ui,sans-serif;background:#fff;color:#111;font-size:13px;line-height:1.4}
+
+.hd{background:#1B2B3A;padding:18px 24px 0;position:relative}
+.hd-inner{display:flex;align-items:flex-end}
+.hd-title{color:#fff;font-size:20px;font-weight:700;line-height:1.2;letter-spacing:-.01em}
+.hd-sub{color:#7A909E;font-size:12px;font-weight:500;margin-top:5px}
+.hd-brand{color:#C8902C;font-size:12px;font-weight:700;letter-spacing:.06em;flex-shrink:0;padding-bottom:2px}
+.hd-bar{height:3px;margin-top:12px;background:linear-gradient(90deg,#C8902C,#F0BA55,#C8902C,#9A6C1A,#C8902C);background-size:300% 100%;animation:sh 3s linear infinite}
+@keyframes sh{0%{background-position:0%}100%{background-position:300%}}
+
+.tabs{display:flex;background:#1B2B3A;padding:0 24px;border-bottom:1px solid #253545}
+.tab-desc{padding:9px 24px;background:#1B2B3A;font-size:12px;color:#7A909E;font-weight:500;line-height:1.5;border-bottom:3px solid #C8902C}
+.tab-desc strong{color:#CBD8E0;font-weight:600}
+.tab{padding:10px 16px;font-size:13px;font-weight:600;color:#6B8090;cursor:pointer;border-bottom:3px solid transparent;transition:all .15s;white-space:nowrap;letter-spacing:.01em}
+.tab:hover{color:#adc3d4}
+.tab.on{color:#fff;border-bottom-color:#C8902C}
+
+.toolbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:10px 24px;background:#F8F6F2;border-bottom:1px solid #E5E0D8}
+.srch{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:500;padding:6px 11px;border:1px solid #D4CEBE;border-radius:5px;background:#fff;color:#111;outline:none;width:180px;transition:border-color .15s}
+.srch:focus{border-color:#C8902C}
+.toggle{display:flex;border:1px solid #D4CEBE;border-radius:5px;overflow:hidden}
+.tbtn{font-family:'Inter',system-ui,sans-serif;font-size:11px;font-weight:600;padding:6px 12px;border:none;cursor:pointer;background:#F8F6F2;color:#777;transition:all .15s;letter-spacing:.01em}
+.tbtn.on{background:#1B2B3A;color:#fff}
+.slbl{font-size:11px;font-weight:600;color:#999;letter-spacing:.03em;text-transform:uppercase;margin-left:auto}
+.cnt{font-size:11px;font-weight:500;color:#BBB;padding-left:6px;border-left:1px solid #E0D8CE}
+.cur-sel{font-family:'Inter',system-ui,sans-serif;font-size:12px;font-weight:600;padding:6px 10px;border:1px solid #D4CEBE;border-radius:5px;background:#fff;color:#111;outline:none;cursor:pointer;appearance:auto}
+.cur-sel:focus{border-color:#C8902C}
+
+.legend{display:flex;flex-wrap:wrap;gap:16px;padding:10px 24px;background:#F8F6F2;border-bottom:1px solid #E5E0D8;align-items:center}
+.leg{display:flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#444}
+.leg-btn{cursor:pointer;padding:3px 8px;border-radius:4px;border:1px solid transparent;transition:all .15s;user-select:none}
+.leg-btn:hover{background:#EEE9E2;border-color:#D4CEBE}
+.leg-btn.active-sort{background:#1B2B3A;color:#fff;border-color:#1B2B3A}
+.ldot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.leg-note{font-size:11px;color:#BBB;font-style:italic;margin-left:auto}
+.ctx-bar{
+  display:flex;align-items:center;gap:12px;
+  padding:9px 24px;
+  font-size:12px;font-weight:600;
+  border-bottom:1px solid transparent;
+  animation:ctx-in .2s ease;
+  transition:background .2s,border-color .2s;
+}
+@keyframes ctx-in{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.ctx-bar .ctx-icon{font-size:16px;flex-shrink:0}
+.ctx-bar .ctx-label{font-size:13px;font-weight:700;color:#111;white-space:nowrap}
+.ctx-bar .ctx-sep{color:#CCC;font-weight:400}
+.ctx-bar .ctx-insight{font-size:12px;font-weight:500;color:#444;line-height:1.4}
+.ctx-bar .ctx-sort-tag{
+  margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.08em;
+  text-transform:uppercase;padding:3px 8px;border-radius:3px;white-space:nowrap;
+}
+.legend.hide{display:none}
+
+.scroll{overflow-y:auto;max-height:600px;padding:8px 24px 18px;background:#fff}
+
+/* STACKED BAR */
+.row{display:grid;grid-template-columns:24px 1fr auto;align-items:center;gap:10px;padding:4px 0;border-bottom:1px solid #F0EBE3}
+.row:last-child{border-bottom:none}
+.rnk{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:500;color:#BBB;text-align:right}
+.rinn{display:grid;grid-template-columns:162px 1fr;align-items:center;gap:10px}
+.rnat{font-size:13px;font-weight:600;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rnat.e{color:#9B6A12;font-weight:700}
+.rflag{margin-right:5px;font-size:14px;line-height:1}
+.rtrack{display:flex;height:24px;border-radius:4px;overflow:visible;background:#EEE9E2;position:relative}
+.rseg{height:100%;transition:width .35s ease}
+.rtot{font-family:'IBM Plex Mono',monospace;font-size:12px;font-weight:500;color:#333;text-align:right;white-space:nowrap}
+
+/* AVG VS MIN */
+.row2{display:grid;grid-template-columns:24px 1fr 60px;align-items:center;gap:10px;padding:4px 0;border-bottom:1px solid #F0EBE3}
+.row2:last-child{border-bottom:none}
+.r2inn{display:grid;grid-template-columns:162px 1fr;align-items:center;gap:10px}
+.r2bars{display:flex;flex-direction:column;gap:4px}
+.r2line{display:flex;align-items:center;gap:8px;height:18px}
+.r2lbl{font-size:9px;font-weight:700;color:#BBB;text-transform:uppercase;letter-spacing:.04em;width:24px;flex-shrink:0}
+.r2bar{height:20px;border-radius:3px;display:flex;align-items:center;padding:0 8px;min-width:4px;transition:width .35s ease;position:relative}
+.r2val{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;white-space:nowrap}
+.r2save{font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:700;color:#2A9668;text-align:right}
+.sort-save{cursor:pointer;text-decoration:underline dotted #2A9668;user-select:none}
+.sort-save:hover{color:#1A7050}
+
+/* TABLE */
+.twrap{overflow-x:auto}
+.tbl{width:100%;border-collapse:collapse;min-width:500px}
+.tbl thead th{background:#1B2B3A;color:#fff;font-size:11px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;padding:10px 14px;text-align:left;cursor:pointer;white-space:nowrap;user-select:none}
+.tbl thead th:hover{background:#2A3D50}
+.tbl thead th.srt::after{content:' ↓';color:#C8902C}
+.tbl thead th.srt.asc::after{content:' ↑'}
+.tbl tbody tr{border-bottom:1px solid #EDE8E2;transition:background .1s}
+.tbl tbody tr:hover{background:#FAF8F4}
+.tbl tbody tr.er{background:#FFF9F0}
+.tbl tbody tr.er:hover{background:#FFF3DC}
+.tbl td{padding:9px 14px;font-size:13px}
+.tbl td.nc{font-weight:600;color:#111}
+.tbl td.nc.e{color:#9B6A12;font-weight:700}
+.tbl td.mo{font-family:'IBM Plex Mono',monospace;font-weight:500;color:#222;text-align:right}
+.tbl td.rk{color:#CCC;font-family:'IBM Plex Mono',monospace;font-size:11px;text-align:right;width:30px}
+
+.foot{display:flex;justify-content:space-between;align-items:center;padding:10px 24px;background:#F8F6F2;border-top:1px solid #E5E0D8;gap:12px}
+.foot-note{font-size:10px;color:#AAA;line-height:1.5}
+.foot-logo{height:28px;width:auto;flex-shrink:0;object-fit:contain}
+.hd-brand{color:#C8902C;font-size:12px;font-weight:700;letter-spacing:.06em;flex-shrink:0;padding-bottom:2px}
+
+:root{
+  --fl:#2C6E9C;
+  --ac:#C4562A;
+  --tk:#2A8C60;
+  --fd:#8C6A2A;
+  --avg:#1B2B3A;
+  --min:#A8C4D8;
+}
+
+/* TOOLTIP */
+.rseg{position:relative;cursor:default}
+#tip{
+  position:fixed;
+  background:#1B2B3A;
+  color:#fff;
+  font-family:'Inter',system-ui,sans-serif;
+  font-size:12px;
+  font-weight:600;
+  white-space:nowrap;
+  padding:7px 11px;
+  border-radius:6px;
+  pointer-events:none;
+  z-index:9999;
+  box-shadow:0 4px 16px rgba(0,0,0,.3);
+  line-height:1.4;
+  display:none;
+}
+#tip::after{
+  content:'';
+  position:absolute;
+  top:100%;
+  left:50%;
+  transform:translateX(-50%);
+  border:5px solid transparent;
+  border-top-color:#1B2B3A;
+}
+</style>
+</head>
+<body>
+
+<div id="tip"></div>
+<div class="hd">
+  <div class="hd-inner">
+    <div>
+      <div class="hd-title">2026 World Cup — True Cost of Following Your Team</div>
+      <div class="hd-sub">All 48 qualified nations · Two supporters travelling together · Group stage costs</div>
+    </div>
+  </div>
+  <div class="hd-bar"></div>
+</div>
+
+<div class="tabs">
+  <div class="tab on" data-tab="stacked">What It Costs</div>
+  <div class="tab" data-tab="avgmin">Average vs Budget</div>
+  <div class="tab" data-tab="table">All Stages &amp; Full Data</div>
+</div>
+
+<div class="tab-desc" id="tabDesc"></div>
+<div class="toolbar">
+  <input class="srch" id="srch" type="text" placeholder="Search nation…">
+  <div class="toggle">
+    <button class="tbtn on" data-acc="book">Booking.com</button>
+    <button class="tbtn" data-acc="air">Airbnb</button>
+  </div>
+  <select class="cur-sel" id="curSel">
+    <option value="USD">🇺🇸 USD</option>
+    <option value="GBP">🇬🇧 GBP</option>
+    <option value="EUR">🇪🇺 EUR</option>
+    <option value="CAD">🇨🇦 CAD</option>
+    <option value="AUD">🇦🇺 AUD</option>
+  </select>
+  <span class="slbl" id="slbl">Avg Group Stage ↓</span>
+  <span class="cnt" id="cnt">48 nations</span>
+</div>
+
+<div class="legend" id="leg">
+  <div class="leg leg-btn" data-sort="fl" title="Sort by flight cost">✈ Flights</div>
+  <div class="leg leg-btn" data-sort="ac" title="Sort by accommodation cost">🏨 Accommodation</div>
+  <div class="leg leg-btn" data-sort="tk" title="Sort by ticket cost">🎟 Tickets</div>
+  <div class="leg leg-btn" data-sort="fd" title="Sort by food cost">🍽 Food &amp; Drink</div>
+  <div class="leg-note">★ English-speaking nation</div>
+</div>
+
+<div class="ctx-bar" id="ctxBar" style="display:none"></div>
+<div class="avgmin-hint" id="avgminHint" style="display:none;padding:7px 24px;background:#F0F9F4;border-bottom:1px solid #C8E8D8;font-size:12px;font-weight:600;color:#2A9668;">💡 Click any <u>saving %</u> on the right to sort by biggest discount</div>
+<div class="scroll" id="scroll"></div>
+
+<div class="foot">
+  <div class="foot-note">Source: Google Flights · Booking.com · Airbnb · LiveFootballTickets.com · Numbeo · Data: Apr–May 2026 · Two supporters</div>
+  <img src="https://s3.amazonaws.com/bctn-vi/image.png" alt="Vegas Insider" class="foot-logo">
+</div>
+
+<script>
+// nation, sc1_b, sc1_a, flights, ac_b, ac_a, tickets, food, sc3_b, sc3_a, sc2_b, sc2_a, sc4_b, sc4_a
+const D=[
+["Iraq",35727,30928,20790,9615,8285,3288,2035,11659,11356,81605,70172,44805,44393],
+["Qatar",29865,23411,11822,12597,6650,2520,2926,12334,10751,74547,60685,44686,42706],
+["Jordan",29852,26820,16376,7904,7908,2938,2634,9811,10265,77889,67760,44443,44768],
+["Iran",28868,23265,14184,9921,5562,2108,2655,10251,10518,74072,60407,41946,42215],
+["Ivory Coast",28647,22727,12008,10839,7000,3822,1978,11829,11881,76391,62736,45184,45013],
+["Uzbekistan",28118,24174,15042,7107,5125,3968,2001,10854,10978,75295,63918,44186,43268],
+["Bosnia & Herz.",27920,20782,8128,12638,5654,4162,2992,12205,11145,72602,58158,44557,43100],
+["Argentina",27151,23036,7670,11235,9366,5736,2510,13751,13684,75187,64076,48383,48187],
+["DR Congo",26524,20934,11970,8708,4964,3678,2168,11402,11394,73701,60670,44734,43683],
+["Japan",26367,21931,11919,9371,6611,3240,1836,11543,11291,72152,61253,44331,44176],
+["United States",26299,18617,3410,12877,8568,6860,3152,11689,11984,70471,56944,44250,44875],
+["Scotland",26172,21414,6644,10412,7972,6278,2838,13618,13657,71596,61736,46806,47287],
+["Australia",26158,21087,8413,11088,7209,3878,2780,12274,12245,69834,59009,44698,44998],
+["Morocco",25479,21460,8198,9441,8523,4910,2929,13175,13022,70640,61518,46195,46485],
+["Saudi Arabia",25338,21636,12235,7770,6834,2486,2847,9721,10091,71385,60311,42446,43335],
+["Paraguay",25265,19124,7499,10367,6917,4192,3207,10848,11504,69438,57542,43410,44395],
+["Brazil",25115,21900,6899,8345,7555,7386,2485,13644,13953,70540,62222,46832,47584],
+["Algeria",25018,22822,9034,10355,8468,2786,2842,11738,10881,72881,63688,46347,45362],
+["Sweden",24786,18147,8700,10774,6013,3052,2260,9089,9427,70757,57644,41659,42094],
+["Canada",24744,16380,2178,14795,9202,5056,2715,10729,10043,68846,53176,42785,41702],
+["Turkey",24687,19803,8486,9839,7317,3494,2867,10794,11103,68860,58222,43356,43994],
+["Egypt",24323,17992,7263,12359,7829,2274,2427,9794,9168,69527,55245,41488,40865],
+["New Zealand",24270,18423,7821,11834,8413,2168,2447,10080,9959,70217,55518,42110,41992],
+["Cape Verde",23993,19874,10766,8349,6513,2064,2813,8849,9177,70039,58559,41575,42421],
+["Switzerland",23767,17245,5742,11876,8304,3162,2987,9634,9954,67869,54052,41691,41613],
+["Belgium",23743,17882,7363,11395,7432,2486,2500,9342,9327,69691,55879,41373,41360],
+["Portugal",23384,19951,5944,7400,9007,7474,2567,12845,13467,70615,59759,46325,45905],
+["Ghana",23164,17662,7607,9886,6762,3730,1941,11451,11112,67192,56228,43511,43405],
+["Austria",23110,20153,7911,9181,8243,3336,2681,10600,10334,70972,61029,45209,44814],
+["Croatia",22854,18117,6941,9086,8176,4976,1850,11117,11206,66882,56683,43177,43500],
+["South Africa",22366,18109,10775,8266,7334,1380,1944,9331,9354,64845,56921,41442,41814],
+["Colombia",22242,19886,7600,5271,8286,7360,2011,12023,12608,69473,59694,45503,45046],
+["Norway",21947,18333,7454,8424,6879,3864,2204,10360,10047,68171,58075,43594,43172],
+["Spain",21831,16723,6465,8470,7253,4546,2350,10480,10474,68280,55811,43373,43886],
+["Netherlands",21629,17764,6849,9106,7164,3498,2176,9825,9732,68705,57045,42619,42653],
+["Ecuador",21529,18565,6099,9048,8566,4184,2199,10713,10360,69294,58707,44018,43442],
+["Germany",21052,17275,7039,7351,6285,4706,1955,10788,10895,68816,57417,44093,43977],
+["Czech Republic",20616,16906,7038,7005,5896,4502,2071,10820,11068,61606,54228,42786,43381],
+["Mexico",20533,18894,4387,4851,7878,9768,1526,12365,12679,61522,56216,44330,44992],
+["France",20384,17264,6547,7343,7184,4476,2018,9941,9845,66608,57006,43175,42970],
+["England",20114,17716,5529,7076,7602,5490,2020,11344,11400,64419,56559,43598,43887],
+["Curaçao",19781,15778,5363,9713,7496,2492,2213,8282,7816,67524,55899,41637,40948],
+["Haiti",19279,13450,1609,11349,7841,3802,2520,8021,7694,64441,53518,41040,41156],
+["Tunisia",19202,15247,7594,7870,5877,2306,1432,8581,8151,64987,54579,41369,41035],
+["Senegal",19195,17537,8890,4934,6527,3560,1811,8930,9029,65073,56932,42076,42066],
+["Uruguay",19065,16457,6699,6125,7458,3516,2726,9762,10272,65514,55544,42656,43684],
+["South Korea",18375,13410,4256,7413,5996,5144,1561,9281,9332,63621,54989,41392,41791],
+["Panama",17282,13922,4976,6671,6652,3900,1734,8491,8334,61587,52765,40744,40822]
+];
+
+
+const FLAGS = {
+  "Iraq":"🇮🇶","Qatar":"🇶🇦","Jordan":"🇯🇴","Iran":"🇮🇷","Ivory Coast":"🇨🇮",
+  "Uzbekistan":"🇺🇿","Bosnia & Herz.":"🇧🇦","Argentina":"🇦🇷","DR Congo":"🇨🇩",
+  "Japan":"🇯🇵","United States":"🇺🇸","Scotland":"🏴󠁧󠁢󠁳󠁣󠁴󠁿","Australia":"🇦🇺","Morocco":"🇲🇦",
+  "Saudi Arabia":"🇸🇦","Paraguay":"🇵🇾","Brazil":"🇧🇷","Algeria":"🇩🇿","Sweden":"🇸🇪",
+  "Canada":"🇨🇦","Turkey":"🇹🇷","Egypt":"🇪🇬","New Zealand":"🇳🇿","Cape Verde":"🇨🇻",
+  "Switzerland":"🇨🇭","Belgium":"🇧🇪","Portugal":"🇵🇹","Ghana":"🇬🇭","Austria":"🇦🇹",
+  "Croatia":"🇭🇷","South Africa":"🇿🇦","Colombia":"🇨🇴","Norway":"🇳🇴","Spain":"🇪🇸",
+  "Netherlands":"🇳🇱","Ecuador":"🇪🇨","Germany":"🇩🇪","Czech Republic":"🇨🇿","Mexico":"🇲🇽",
+  "France":"🇫🇷","England":"🏴󠁧󠁢󠁥󠁮󠁧󠁿","Curaçao":"🇨🇼","Haiti":"🇭🇹","Tunisia":"🇹🇳",
+  "Senegal":"🇸🇳","Uruguay":"🇺🇾","South Korea":"🇰🇷","Panama":"🇵🇦"
+};
+const flag = n => FLAGS[n] || '';
+
+const ENG=new Set(["United States","England","Canada","Australia","Scotland","New Zealand","South Africa"]);
+
+let tab='stacked', acc='book', q='', sc='sc1', sd='desc', cur='USD';
+
+const RATES = { USD:{r:1,s:'$',l:'USD'}, GBP:{r:0.788,s:'£',l:'GBP'}, EUR:{r:0.908,s:'€',l:'EUR'}, CAD:{r:1.363,s:'CA$',l:'CAD'}, AUD:{r:1.538,s:'A$',l:'AUD'} };
+const cv = v => Math.round(v * RATES[cur].r);
+
+const g = {
+  sc1: d => acc==='book'?d[1]:d[2],
+  sc3: d => acc==='book'?d[8]:d[9],
+  sc2: d => acc==='book'?d[10]:d[11],
+  sc4: d => acc==='book'?d[12]:d[13],
+  ac:  d => acc==='book'?d[4]:d[5],
+  fl:  d => d[3],
+  tk:  d => d[6],
+  fd:  d => d[7],
+};
+
+const fmt  = v => RATES[cur].s + cv(v).toLocaleString('en-US');
+const fmtK = v => { const c=cv(v); return RATES[cur].s+(c>=10000?(c/1000).toFixed(0)+'k':(c/1000).toFixed(1)+'k'); };
+
+function rows(){
+  let r=[...D];
+  if(q) r=r.filter(d=>d[0].toLowerCase().includes(q.toLowerCase()));
+  r.sort((a,b)=>{
+    if(sc==='nation') return sd==='asc'?a[0].localeCompare(b[0]):b[0].localeCompare(a[0]);
+    if(sc==='save'){
+      const sa=(g.sc1(a)-g.sc3(a))/g.sc1(a), sb=(g.sc1(b)-g.sc3(b))/g.sc1(b);
+      return sd==='asc'?sa-sb:sb-sa;
+    }
+    const fn=g[sc]||g.sc1;
+    return sd==='asc'?fn(a)-fn(b):fn(b)-fn(a);
+  });
+  return r;
+}
+
+function renderStacked(){
+  const r=rows();
+  const mx=Math.max(...r.map(d=>g.sc1(d)));
+  document.getElementById('cnt').textContent=r.length+' nations';
+  return r.map((d,i)=>{
+    const tot=g.sc1(d), fl=d[3], ac=g.ac(d), tk=d[6], fd=d[7];
+    const scale=tot/mx;
+    const fw=(fl/mx*100).toFixed(2), hw=(ac/mx*100).toFixed(2), tw=(tk/mx*100).toFixed(2), dw=(fd/mx*100).toFixed(2);
+    const is=ENG.has(d[0]);
+    return `<div class="row">
+      <div class="rnk">${i+1}</div>
+      <div class="rinn">
+        <div class="rnat${is?' e':''}" title="${d[0]}"><span class="rflag">${flag(d[0])}</span>${is?'★ ':''}${d[0]}</div>
+        <div class="rtrack">
+          <div class="rseg" style="width:${fw}%;background:var(--fl)" data-tip="✈ Flights: ${fmt(fl)} (${Math.round(fl/tot*100)}%)"></div>
+          <div class="rseg" style="width:${hw}%;background:var(--ac)" data-tip="🏨 Hotels: ${fmt(ac)} (${Math.round(ac/tot*100)}%)"></div>
+          <div class="rseg" style="width:${tw}%;background:var(--tk)" data-tip="🎟 Tickets: ${fmt(tk)} (${Math.round(tk/tot*100)}%)"></div>
+          <div class="rseg" style="width:${dw}%;background:var(--fd)" data-tip="🍽 Food & Drink: ${fmt(fd)} (${Math.round(fd/tot*100)}%)"></div>
+        </div>
+      </div>
+      <div class="rtot">${fmtK(tot)}</div>
+    </div>`;
+  }).join('');
+}
+
+function renderAvgMin(){
+  const r=rows();
+  const mx=Math.max(...r.map(d=>g.sc1(d)));
+  document.getElementById('cnt').textContent=r.length+' nations';
+  return r.map((d,i)=>{
+    const avg=g.sc1(d), mn=g.sc3(d);
+    const save=Math.round((avg-mn)/avg*100);
+    const aw=((avg/mx)*100).toFixed(2), mw=((mn/mx)*100).toFixed(2);
+    const is=ENG.has(d[0]);
+    const avgThin=parseFloat(aw)<30;
+    const minThin=parseFloat(mw)<20;
+    return `<div class="row2">
+      <div class="rnk">${i+1}</div>
+      <div class="r2inn">
+        <div class="rnat${is?' e':''}" title="${d[0]}"><span class="rflag">${flag(d[0])}</span>${is?'★ ':''}${d[0]}</div>
+        <div class="r2bars">
+          <div class="r2line">
+            <div class="r2lbl">Avg</div>
+            <div class="r2bar" style="width:${aw}%;background:var(--avg)">
+              <span class="r2val" style="color:${avgThin?'#333':'#fff'};${avgThin?'margin-left:calc('+aw+'% + 6px)':''}">${fmtK(avg)}</span>
+            </div>
+            ${avgThin?'<span style="font-family:IBM Plex Mono,monospace;font-size:10px;font-weight:500;color:#555;margin-left:6px">'+fmtK(avg)+'</span>':''}
+          </div>
+          <div class="r2line">
+            <div class="r2lbl">Min</div>
+            <div class="r2bar" style="width:${mw}%;background:var(--min)">
+              <span class="r2val" style="color:#333">${fmtK(mn)}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="r2save sort-save" title="Click to sort by saving">-${save}%</div>
+    </div>`;
+  }).join('');
+}
+
+function renderTable(){
+  const r=rows();
+  document.getElementById('cnt').textContent=r.length+' nations';
+  const cols=[
+    {k:'nation',l:'Nation'},{k:'sc1',l:'Avg — Group Stage'},
+    {k:'sc3',l:'Min — Group Stage'},{k:'sc2',l:'Avg — Full Tournament'},{k:'sc4',l:'Min — Full Tournament'}
+  ];
+  const thead=`<thead><tr><th style="cursor:default;width:30px">#</th>${
+    cols.map(c=>`<th data-col="${c.k}" class="${sc===c.k?'srt'+(sd==='asc'?' asc':''):''}">${c.l}</th>`).join('')
+  }</tr></thead>`;
+  const tbody=`<tbody>${r.map((d,i)=>{
+    const is=ENG.has(d[0]);
+    return `<tr class="${is?'er':''}">
+      <td class="rk">${i+1}</td>
+      <td class="nc ${is?'e':''}"><span class="rflag">${flag(d[0])}</span>${is?'★ ':''}${d[0]}</td>
+      <td class="mo">${fmt(g.sc1(d))}</td>
+      <td class="mo">${fmt(g.sc3(d))}</td>
+      <td class="mo">${fmt(g.sc2(d))}</td>
+      <td class="mo">${fmt(g.sc4(d))}</td>
+    </tr>`;
+  }).join('')}</tbody>`;
+  return `<div class="twrap"><table class="tbl">${thead}${tbody}</table></div>`;
+}
+
+const TAB_DESC = {
+  stacked: '<strong>What does it cost to follow your team?</strong> Each bar shows the average group stage trip for two supporters — broken down by flights, accommodation, tickets, and food. Ranked by total cost. Click a legend item to re-sort by that component.',
+  avgmin:  '<strong>How much can you save?</strong> Two bars per nation — the average price trip vs the cheapest possible trip — both for the group stage only. The green percentage shows how much budget travel saves vs the average.',
+  table:   '<strong>Full data for all 48 nations.</strong> Includes all four scenarios: average and minimum prices, for the group stage and the full tournament through to the Final. Click any column header to sort.'
+};
+
+function render(){
+  const scr=document.getElementById('scroll');
+  const leg=document.getElementById('leg');
+  const hint=document.getElementById('avgminHint');
+  document.getElementById('tabDesc').innerHTML = TAB_DESC[tab] || '';
+  if(tab==='stacked'){leg.classList.remove('hide');scr.innerHTML=renderStacked();hint.style.display='none';}
+  else if(tab==='avgmin'){leg.classList.add('hide');scr.innerHTML=renderAvgMin();hint.style.display='block';}
+  else{leg.classList.add('hide');scr.innerHTML=renderTable();hint.style.display='none';}
+
+  const lmap={sc1:'Total Cost',sc3:'Min Group Stage',sc2:'Avg All Stages',sc4:'Min All Stages',nation:'Nation',fl:'Flight Cost',ac:'Hotel Cost',tk:'Ticket Cost',fd:'Food Cost',save:'Saving %'};
+  document.getElementById('slbl').textContent=(lmap[sc]||sc)+' '+(sd==='desc'?'↓':'↑');
+
+  if(tab==='table'){
+    document.querySelectorAll('.tbl th[data-col]').forEach(th=>{
+      th.addEventListener('click',()=>{
+        const c=th.dataset.col;
+        if(sc===c)sd=sd==='desc'?'asc':'desc';
+        else{sc=c;sd=c==='nation'?'asc':'desc';}
+        render();
+      });
+    });
+  }
+}
+
+document.querySelectorAll('.tab').forEach(t=>t.addEventListener('click',()=>{
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  t.classList.add('on');tab=t.dataset.tab;sc='sc1';sd='desc';
+  document.querySelectorAll('.leg-btn').forEach(b=>b.classList.remove('active-sort'));
+  document.getElementById('ctxBar').style.display='none';
+  render();
+}));
+
+document.querySelectorAll('.tbtn').forEach(b=>b.addEventListener('click',()=>{
+  document.querySelectorAll('.tbtn').forEach(x=>x.classList.remove('on'));
+  b.classList.add('on');acc=b.dataset.acc;render();
+}));
+
+document.getElementById('srch').addEventListener('input',e=>{q=e.target.value;render();});
+
+render();
+
+// ── LEGEND COMPONENT SORT ─────────────────────
+const CTX = {
+  fl: {
+    icon:'✈',
+    label:'Sorted by Flight Cost',
+    color:'#E8F2F8',
+    border:'#B8D4E8',
+    tag:'#2C6E9C',
+    insight: r => {
+      const top=r[0], bot=r[r.length-1];
+      return `<b>${flag(top[0])} ${top[0]}</b> has the highest flights at <b>${fmt(top[3])}</b> — <b>${flag(bot[0])} ${bot[0]}</b> the lowest at <b>${fmt(bot[3])}</b>`;
+    }
+  },
+  ac: {
+    icon:'🏨',
+    label:'Sorted by Accommodation Cost',
+    color:'#FAF0EC',
+    border:'#EAC4B4',
+    tag:'#C4562A',
+    insight: r => {
+      const top=r[0], bot=r[r.length-1];
+      const acT=g.ac(top), acB=g.ac(bot);
+      return `<b>${flag(top[0])} ${top[0]}</b> pays the most for hotels at <b>${fmt(acT)}</b> — <b>${flag(bot[0])} ${bot[0]}</b> the least at <b>${fmt(acB)}</b>`;
+    }
+  },
+  tk: {
+    icon:'🎟',
+    label:'Sorted by Ticket Cost',
+    color:'#EDF7F2',
+    border:'#A8D8C0',
+    tag:'#2A8C60',
+    insight: r => {
+      const top=r[0], bot=r[r.length-1];
+      return `<b>${flag(top[0])} ${top[0]}</b> faces the highest ticket costs at <b>${fmt(top[6])}</b> — <b>${flag(bot[0])} ${bot[0]}</b> the lowest at <b>${fmt(bot[6])}</b>`;
+    }
+  },
+  fd: {
+    icon:'🍽',
+    label:'Sorted by Food & Drink Cost',
+    color:'#F9F4EC',
+    border:'#DCC898',
+    tag:'#8C6A2A',
+    insight: r => {
+      const top=r[0], bot=r[r.length-1];
+      return `<b>${flag(top[0])} ${top[0]}</b> has the highest food costs at <b>${fmt(top[7])}</b> — <b>${flag(bot[0])} ${bot[0]}</b> the lowest at <b>${fmt(bot[7])}</b>`;
+    }
+  }
+};
+
+function showCtxBar(sortKey) {
+  const bar = document.getElementById('ctxBar');
+  if (!sortKey || !CTX[sortKey]) { bar.style.display='none'; return; }
+  const c = CTX[sortKey];
+  const r = rows();
+  bar.style.display = 'flex';
+  bar.style.background = c.color;
+  bar.style.borderColor = c.border;
+  // Force re-animation
+  bar.style.animation = 'none';
+  bar.offsetHeight;
+  bar.style.animation = 'ctx-in .2s ease';
+  bar.innerHTML = `
+    <span class="ctx-icon">${c.icon}</span>
+    <span class="ctx-label">${c.label}</span>
+    <span class="ctx-sep">—</span>
+    <span class="ctx-insight">${c.insight(r)}</span>
+    <span class="ctx-sort-tag" style="background:${c.tag};color:#fff">${sd==='desc'?'Highest first ↓':'Lowest first ↑'}</span>
+  `;
+}
+
+document.getElementById('leg').addEventListener('click', e => {
+  const btn = e.target.closest('.leg-btn');
+  if (!btn) return;
+  const s = btn.dataset.sort;
+  if (!s) return;
+  if (sc === s) sd = sd==='desc'?'asc':'desc';
+  else { sc = s; sd = 'desc'; }
+  render();
+  document.querySelectorAll('.leg-btn').forEach(b => b.classList.remove('active-sort'));
+  btn.classList.add('active-sort');
+  showCtxBar(s);
+});
+
+// ── AVG/MIN SAVING % SORT ─────────────────────
+document.getElementById('scroll').addEventListener('click', e => {
+  if (e.target.closest('.sort-save')) {
+    if (sc === 'save') sd = sd==='desc'?'asc':'desc';
+    else { sc = 'save'; sd = 'desc'; }
+    render();
+  }
+});
+
+// ── CURRENCY ──────────────────────────────────
+document.getElementById('curSel').addEventListener('change', e => {
+  cur = e.target.value;
+  render();
+});
+
+// ── TOOLTIP ──────────────────────────────────
+const tip = document.getElementById('tip');
+document.addEventListener('mouseover', e => {
+  const seg = e.target.closest('.rseg');
+  if (!seg || !seg.dataset.tip) { tip.style.display='none'; return; }
+  tip.textContent = seg.dataset.tip;
+  tip.style.display = 'block';
+});
+document.addEventListener('mousemove', e => {
+  const seg = e.target.closest('.rseg');
+  if (!seg) { tip.style.display='none'; return; }
+  const x = e.clientX, y = e.clientY;
+  const tw = tip.offsetWidth;
+  tip.style.left = Math.min(x - tw/2, window.innerWidth - tw - 8) + 'px';
+  tip.style.top = (y - tip.offsetHeight - 12) + 'px';
+});
+document.addEventListener('mouseout', e => {
+  if (!e.target.closest('.rseg')) tip.style.display='none';
+});
+</script>
+</body>
+</html>
